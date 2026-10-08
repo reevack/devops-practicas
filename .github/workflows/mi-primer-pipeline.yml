@@ -1,0 +1,27 @@
+name: Mi Primer Pipeline DevOps
+
+# 1. TRIGGER: Se activa cada vez que hacemos un 'push' a la rama main
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  saludar-y-verificar:
+    # 2. RUNNER: El entorno virtual (en este caso, Ubuntu) donde correrá el job
+    runs-on: ubuntu-latest
+
+    steps:
+      # 3. STEPS: Pasos secuenciales
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      - name: Mostrar mensaje de bienvenida
+        run: |
+          echo "¡Hola desde el pipeline de CI/CD!"
+          echo "Este código se está ejecutando automáticamente en una máquina virtual de Ubuntu en la nube."
+
+      - name: Verificar la versión del sistema y herramientas básicas
+        run: |
+          uname -a
+          node --version || echo "Node no está instalado por defecto (es normal)"
+          python3 --version
